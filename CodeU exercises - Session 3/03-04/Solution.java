@@ -22,7 +22,7 @@ class QueryStream{
         list.add(new Query("hey"));
         list.add(new Query("OK Google"));
     }
-    Iterator iterator = new Iterator() {
+    class QueryIterator implements Iterator {
         int queryIndex = 0;        // the index of the query that contains the new word
         int wordIndex = 0;         // the starting index of the next word
         boolean newQuery = false;  // tells whether the next string to be printed is <NEWQUERY>
@@ -57,12 +57,16 @@ class QueryStream{
             }
             return res;
         }
-    };
+    }
+
+    public Iterator getIterator(){
+        return new QueryIterator();
+    }
 }
 public class Solution {
     public static void main(String[] str){
         QueryStream queryStream = new QueryStream();
-        Iterator iterator = queryStream.iterator;
+        Iterator iterator = queryStream.getIterator();
         while(iterator.hasNext()){
             System.out.println(iterator.next());
         }
